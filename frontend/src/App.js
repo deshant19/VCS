@@ -1,26 +1,45 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
 
+
 function App() {
+  const [file, setFile] = useState('')
+  const [loading, setLoading] = useState(false)
+
+  const uploadFile = async e => {
+    const files = e.target.files
+    const data = new FormData()
+    data.append('file', files[0])
+    setLoading(true)
+    const res = await fetch(
+      '	http://localhost:8080/file/upload',
+      {
+        method: 'POST',
+        body: data
+      }
+    )
+    const file = await res.json()
+
+    setFile(file.secure_url)
+    setLoading(false)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Upload File</h1>
+      <input
+        type="file"
+        name="file"
+        placeholder="Upload a file"
+        onChange={uploadFile}
+      />
+      {loading ? (
+        <h3>Loading...</h3>
+      ) : (
+        <textarea value={file} style={{ width: '300px' }} />
+      )}
     </div>
-  );
+  )
 }
 
 export default App;
