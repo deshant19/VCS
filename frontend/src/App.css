@@ -28,11 +28,40 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+div #show {
+  margin-bottom: 20px;
+}
+
+div #first {
+  padding-right: 250px;
+}
+
+div #second {
+  padding-left: 100px;
+}
+
+div #show-text-first {
+  border: 1px solid gray;
+  min-height: 300px;
+  overflow: auto; 
+  padding: 2px;
+  resize: both;
+  width: 400px;
+  font-size:15px;
+  color:#000;
+  float: left;
+  margin-left: 100px;
+}
+
+div #show-text-second {
+  border: 1px solid gray;
+  min-height: 300px;
+  overflow: auto; 
+  padding: 2px;
+  resize: both;
+  width: 400px;
+  font-size:15px;
+  color:#000;
+  float: right;
+  margin-right: 200px;
 }
