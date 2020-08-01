@@ -5,17 +5,17 @@ import java.util.Arrays;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "File")
+@Table(name = "Files")
 public class FileModel {
 
   public FileModel() {
         super();
     }
 
-   public FileModel(String name, String type, byte[] fileByte) {
+   public FileModel(String name, String type, byte[] file) {
         this.name = name;
         this.type = type;
-        this.fileByte = fileByte;
+        this.file = file;
     }
 
     @Id
@@ -25,12 +25,15 @@ public class FileModel {
 
     @Column(name = "NAME")
     private String name;
+    
+    @Column(name = "VERSION")
+    private int version;
 
     @Column(name = "TYPE")
     private String type;
 
-    @Column(name = "FILEBYTE", length = 1000)
-    private byte[] fileByte;
+    @Column(name = "FILE", length = 1000)
+    private byte[] file;
 
 	public Long getId() {
 		return id;
@@ -56,17 +59,25 @@ public class FileModel {
 		this.type = type;
 	}
 
-	public byte[] getFileByte() {
-		return fileByte;
+	public byte[] getFile() {
+		return file;
 	}
 
-	public void setFileByte(byte[] fileByte) {
-		this.fileByte = fileByte;
+	public void setFile(byte[] file) {
+		this.file = file;
+	}
+	
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
 	}
 
 	@Override
 	public String toString() {
-		return "FileModel [id=" + id + ", name=" + name + ", type=" + type + ", fileByte=" + Arrays.toString(fileByte)
+		return "FileModel [id=" + id + ", name=" + name + ", type=" + type + ", version=" + version + ", file=" + Arrays.toString(file)
 				+ "]";
 	}
 

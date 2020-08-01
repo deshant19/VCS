@@ -28,16 +28,26 @@
   color: #61dafb;
 }
 
+div #boxes {
+  margin-bottom: 20px;
+}
+
 div #show {
   margin-bottom: 20px;
+}
+
+div #show #first {
+  margin-bottom: 20px;
+  float: left;
+  margin-left: 50px;
 }
 
 div #first {
   padding-right: 250px;
 }
 
-div #second {
-  padding-left: 100px;
+div #show-text {
+  margin-bottom: 800px;
 }
 
 div #show-text-first {
@@ -49,19 +59,12 @@ div #show-text-first {
   width: 400px;
   font-size:15px;
   color:#000;
-  float: left;
-  margin-left: 100px;
+  margin-top: 70px;
+  margin-left: 50px;
 }
 
-div #show-text-second {
-  border: 1px solid gray;
-  min-height: 300px;
-  overflow: auto; 
-  padding: 2px;
-  resize: both;
-  width: 400px;
-  font-size:15px;
-  color:#000;
-  float: right;
-  margin-right: 200px;
+div #save {
+  float: left;
+  margin-left: 230px;
 }
+
