@@ -53,7 +53,7 @@ function App() {
 
   const getFiles = async e => {
     const res = await fetch(
-      'http://localhost:8080/file/upload/'+{name},
+      'http://localhost:8080/file/'+{name},
       {
         method: 'GET',
         mode: 'no-cors'

@@ -54,8 +54,8 @@ public class VcsController {
         final Iterable<FileModel> retrievedFiles = vcsRepository.findAllByName(name);
         List<FileModel> filesList = new ArrayList<>();
         
-        while(retrievedFiles.iterator().hasNext()) {
-        	filesList.add(retrievedFiles.iterator().next());
+        if(retrievedFiles.iterator().hasNext()) {
+        	retrievedFiles.iterator().forEachRemaining(filesList::add);
         }
         
         return Response.ok().entity(filesList).build();
