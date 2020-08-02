@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from'axios';
 import './App.css';
 
 
@@ -52,20 +53,13 @@ function App() {
   }
 
   const getFiles = async e => {
-    const res = await fetch(
-      'http://localhost:8080/file/'+{name},
-      {
-        method: 'GET',
-        mode: 'no-cors'
-      }
-    ).then(response => response.text())
-    .then(contents => console.log(contents))
-    .catch(() => console.log("Can’t access response. Blocked by browser or invalid endpoint!"))
+    
+    const res = await axios(
+      `http://localhost:8080/file/${name}`,
+    )
 
-    const data = await res.json()
-    setDataFiles(data.results)
-  }  
-
+    setDataFiles(res.data.entity)
+    }
 
   return (
     <div className="App">
@@ -86,25 +80,25 @@ function App() {
       </div>
       
       <div id = "show-text">
-        <div>
-          <div id="show-text-first" contentEditable="true"></div>
-
-            <div id="data">
-              {!dataFiles.length ? 
-                <div>No files present.</div> :
-                <div>
-                  {dataFiles.map(file => (
-                    <div key = {file.id}>
-                      <div>{file.version}</div>
-                      <div>{file.name}</div>
-                      <div><button>Revert</button></div>
-                      <div><button>Update</button></div>
-                    </div>
-                  ))}
+        
+        <div id="data">
+          {!dataFiles.length ? 
+            <div><strong>No files present.</strong></div> :
+            <div>
+              {dataFiles.map(file => (
+                <div key = {file.id}>
+                  <strong>Version: {file.version}</strong>&nbsp;&nbsp;&nbsp;
+                  <strong>{file.name}</strong>&nbsp;&nbsp;&nbsp;
+                  <button>Revert</button>&nbsp;&nbsp;&nbsp;
+                  <button>Update</button>
                 </div>
-              }
+              ))}
             </div>
+          }
         </div>
+          
+        <div id="show-text-first" contentEditable="true"></div>
+           
         <div id="save">
           <button onClick={uploadFile}>Save</button>
         </div>

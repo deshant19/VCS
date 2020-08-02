@@ -59,8 +59,12 @@ div #show-text-first {
   width: 400px;
   font-size:15px;
   color:#000;
-  margin-top: 70px;
+  margin-top: 20px;
   margin-left: 50px;
+}
+
+div #data {
+  margin-left: 600px;
 }
 
 div #save {
