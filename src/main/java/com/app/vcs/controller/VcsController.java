@@ -1,6 +1,7 @@
 package com.app.vcs.controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -50,9 +51,14 @@ public class VcsController {
         	f.setVersion(1);
         }
        
-        vcsRepository.save(f);
+        try {
+        	vcsRepository.save(f);
+        }catch(Exception e) {
+        	throw e;
+        }
         return Response.ok().entity(f).build();
     }
+    
 
     @GetMapping(path = { "/{name}" })
     public Response getFile(@PathVariable("name") String name) throws IOException {
@@ -73,12 +79,9 @@ public class VcsController {
        FileModel fileEntity = vcsRepository.findByVersionAndName(version, name).get();
      
        return ResponseEntity.ok()
-               // Content-Disposition
                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;name=" + fileEntity.getName())
-               // Content-Type
                .contentType(MediaType.valueOf(fileEntity.getType()))
-               // Contet-Length
-               .contentLength(fileEntity.getFile().length) //
+               .contentLength(fileEntity.getFile().length) 
                .body(fileEntity.getFile());
     }
     
@@ -98,9 +101,13 @@ public class VcsController {
 			}
     	}
     	
-    	for(FileModel deleteFile : deleteList) {
-    		vcsRepository.delete(deleteFile);
-    	}
+    	try {
+	    	for(FileModel deleteFile : deleteList) {
+	    		vcsRepository.delete(deleteFile);
+	    	}
+    	}catch(Exception e) {
+        	throw e;
+        }
 
         //retrieve files
         final Iterable<FileModel> retrievedFiles = vcsRepository.findAllByName(name);
