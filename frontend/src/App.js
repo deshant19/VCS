@@ -32,6 +32,12 @@ function App() {
     }
   }
 
+  const revertFile = async e => {
+    const url = `http://localhost:8080/file/delete/${e.target.id}/${e.target.name}`
+    const res = await axios(url)
+    setDataFiles(res.data.entity)
+  }
+
   const updateFile = async e => {
     const url = `http://localhost:8080/file/${e.target.id}/${e.target.name}`
     setTimeout(() => {
@@ -98,7 +104,7 @@ function App() {
                 <div key = {file.id}>
                   <strong>Version: {file.version}</strong>&nbsp;&nbsp;&nbsp;
                   <strong>{file.name}</strong>&nbsp;&nbsp;&nbsp;
-                  <button id = {file.version}>Revert</button>&nbsp;&nbsp;&nbsp;
+                  <button id = {file.version} name = {file.name} onClick={revertFile}>Revert</button>&nbsp;&nbsp;&nbsp;
                   <button id = {file.version} name = {file.name} onClick={updateFile}>Download to Update</button>
                 </div>
               ))}

@@ -10,7 +10,6 @@ import javax.ws.rs.core.Response;
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -81,6 +80,37 @@ public class VcsController {
                // Contet-Length
                .contentLength(fileEntity.getFile().length) //
                .body(fileEntity.getFile());
+    }
+    
+    @RequestMapping("/delete/{version}/{name}")
+    public Response deleteUser(@PathVariable("version") int version, @PathVariable("name") String name) {
+    	//delete files
+    	List<FileModel> deleteList = new ArrayList<>();
+    	
+    	FileModel fileEntity = vcsRepository.findByVersionAndName(version, name)
+          .orElseThrow(() -> new IllegalArgumentException("Invalid version: "+ version + " or name: " + name));
+    	
+    	List<FileModel> deleteRetrievedFiles = vcsRepository.findAllByName(name);
+    	
+    	for(FileModel f : deleteRetrievedFiles) {
+			if(f.getVersion() > fileEntity.getVersion()) {
+				deleteList.add(f);
+			}
+    	}
+    	
+    	for(FileModel deleteFile : deleteList) {
+    		vcsRepository.delete(deleteFile);
+    	}
+
+        //retrieve files
+        final Iterable<FileModel> retrievedFiles = vcsRepository.findAllByName(name);
+        List<FileModel> filesList = new ArrayList<>();
+        
+        if(retrievedFiles.iterator().hasNext()) {
+        	retrievedFiles.iterator().forEachRemaining(filesList::add);
+        }
+        
+        return Response.ok().entity(filesList).build();
     }
 
   }
