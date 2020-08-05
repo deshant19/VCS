@@ -11,7 +11,7 @@ function App() {
   
   const showFile = async e => {
     setFile(e.target.files[0])
-    console.log(file)
+   // console.log(file)
     if (window.File && window.FileReader && window.FileList && window.Blob) {
       var preview = document.getElementById('show-text-first');
       var fileData = document.querySelector('input[id=first]').files[0];
@@ -32,6 +32,16 @@ function App() {
     }
   }
 
+  const updateFile = async e => {
+    const url = `http://localhost:8080/file/${e.target.id}/${e.target.name}`
+    setTimeout(() => {
+      const response = {
+        file: url,
+      };
+      window.location.href = response.file;
+    }, 100);
+  }
+
   const uploadFile = async e => {
     const files = file
     const data = new FormData()
@@ -40,12 +50,11 @@ function App() {
       'http://localhost:8080/file/upload',
       {
         method: 'POST',
-        body: data,
-        mode: 'no-cors'
+        body: data
       }
     )
-    const result = await res.json()
-    console.log(result);
+    //const result = await res.json()
+    console.log(res);
   }
 
   const fileName = e => {
@@ -83,21 +92,22 @@ function App() {
         
         <div id="data">
           {!dataFiles.length ? 
-            <div><strong>No files present.</strong></div> :
+            <div><strong>Search file name with extension(eg. abc.txt) to get all versions.</strong></div> :
             <div>
               {dataFiles.map(file => (
                 <div key = {file.id}>
                   <strong>Version: {file.version}</strong>&nbsp;&nbsp;&nbsp;
                   <strong>{file.name}</strong>&nbsp;&nbsp;&nbsp;
-                  <button>Revert</button>&nbsp;&nbsp;&nbsp;
-                  <button>Update</button>
+                  <button id = {file.version}>Revert</button>&nbsp;&nbsp;&nbsp;
+                  <button id = {file.version} name = {file.name} onClick={updateFile}>Download to Update</button>
                 </div>
               ))}
             </div>
           }
         </div>
-          
-        <div id="show-text-first" contentEditable="true"></div>
+        <div id = "text-box">
+        <textarea id="show-text-first" readOnly = {true}></textarea>
+        </div>
            
         <div id="save">
           <button onClick={uploadFile}>Save</button>

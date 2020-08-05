@@ -9,6 +9,10 @@ import javax.ws.rs.core.Response;
 
 import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,6 +65,22 @@ public class VcsController {
         }
         
         return Response.ok().entity(filesList).build();
+    }
+    
+    
+    @RequestMapping(path = { "/{version}/{name}" })
+    public ResponseEntity<byte[]> getRandomFile(@PathVariable("version") int version, @PathVariable("name") String name) throws IOException {
+     
+       FileModel fileEntity = vcsRepository.findByVersionAndName(version, name).get();
+     
+       return ResponseEntity.ok()
+               // Content-Disposition
+               .header(HttpHeaders.CONTENT_DISPOSITION, "attachment;name=" + fileEntity.getName())
+               // Content-Type
+               .contentType(MediaType.valueOf(fileEntity.getType()))
+               // Contet-Length
+               .contentLength(fileEntity.getFile().length) //
+               .body(fileEntity.getFile());
     }
 
   }

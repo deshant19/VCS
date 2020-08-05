@@ -39,7 +39,7 @@ div #show {
 div #show #first {
   margin-bottom: 20px;
   float: left;
-  margin-left: 50px;
+  margin-left: 75px;
 }
 
 div #first {
@@ -50,17 +50,24 @@ div #show-text {
   margin-bottom: 800px;
 }
 
-div #show-text-first {
-  border: 1px solid gray;
+div #text-box {
   min-height: 300px;
   overflow: auto; 
   padding: 2px;
-  resize: both;
   width: 400px;
   font-size:15px;
-  color:#000;
   margin-top: 20px;
   margin-left: 50px;
+}
+
+#show-text-first {
+  border: 1px solid gray;
+  height: 300px;
+  overflow: auto; 
+  padding: 2px;
+  width: 350px;
+  font-size:15px;
+  color:#000;
 }
 
 div #data {
