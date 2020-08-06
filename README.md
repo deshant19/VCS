@@ -11,10 +11,13 @@ This is setup run time environment for React.
 
 Build the Spring Boot aplication with "maven clean install"
 
-DB setup
+############
+##DB setup##
+############
 
 This application uses MySql DB. Make sure the MySql server is up and running
 before application start.
+
 
 Perform following changes in application.properties file as setup in your env:
 
