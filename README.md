@@ -21,8 +21,8 @@ before application start.
 
 Perform following changes in application.properties file as setup in your env:
 
-spring.datasource.url=
-spring.datasource.username=
+spring.datasource.url=\n
+spring.datasource.username=\n
 spring.datasource.password=
 
 Starting the application:
