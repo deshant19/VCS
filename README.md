@@ -21,9 +21,9 @@ before application start.
 
 Perform following changes in application.properties file as setup in your env:
 
-spring.datasource.url=\n
-spring.datasource.username=\n
-spring.datasource.password=
+1. spring.datasource.url=
+2. spring.datasource.username=
+3. spring.datasource.password=
 
 Starting the application:
 1. Start MySql server
