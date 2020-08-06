@@ -36,6 +36,9 @@ function App() {
     const url = `http://localhost:8080/file/delete/${e.target.id}/${e.target.name}`
     const res = await axios(url)
     setDataFiles(res.data.entity)
+
+    var preview = document.getElementById('show-text-first');
+    preview.innerHTML = atob(res.data.entity[res.data.entity.length-1].file);
   }
 
   const updateFile = async e => {
@@ -60,7 +63,10 @@ function App() {
       }
     )
     //const result = await res.json()
-    console.log(res);
+    if(res.ok === true){
+      alert("File uploaded!!")
+    }
+    //console.log(res);
   }
 
   const fileName = e => {
@@ -74,7 +80,10 @@ function App() {
     )
 
     setDataFiles(res.data.entity)
-    }
+
+    var preview = document.getElementById('show-text-first');
+    preview.innerHTML = atob(res.data.entity[res.data.entity.length-1].file);
+  }
 
   return (
     <div className="App">
