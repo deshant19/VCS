@@ -33,6 +33,11 @@ function App() {
   }
 
   const revertFile = async e => {
+    if(Number(e.target.id) === dataFiles.length){
+      alert("Cannot revert highest version available for "+e.target.name);
+      return false
+    }
+
     const url = `http://localhost:8080/file/delete/${e.target.id}/${e.target.name}`
     const res = await axios(url)
     setDataFiles(res.data.entity)
