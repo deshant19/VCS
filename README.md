@@ -1,7 +1,9 @@
 # VCS
 VCS Project
 
-Project Setup:
+#################
+##Project Setup##
+#################
 
 Run following commands inside folder /frontend.
 This is setup run time environment for React.
@@ -9,7 +11,7 @@ This is setup run time environment for React.
 2. npm install axios
 3. npm install http-proxy-middleware
 
-Build the Spring Boot aplication with "maven clean install"
+Build the Spring Boot application with "maven clean install"
 
 ############
 ##DB setup##
