@@ -10,6 +10,8 @@ import com.app.vcs.model.FileModel;
 
 public interface FileRepository extends CrudRepository<FileModel, Long> {
 	
+	Optional<FileModel> findById(long id);
+	
     Optional<FileModel> findByName(String name);
     
     Optional<FileModel> findByVersionAndName(int version, String name);
